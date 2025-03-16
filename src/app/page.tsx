@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { getWeather } from "@/lib/weather";
 import { motion } from "framer-motion";
 import Switch from "@/components/Switch"; // Upewnij się, że ścieżka jest poprawna
+import Layout from "@/app/layout";
 
 export default function Home() {
   const [city, setCity] = useState("");
@@ -11,21 +12,20 @@ export default function Home() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [weatherCondition, setWeatherCondition] = useState<string | null>(null);
-  const [history, setHistory] = useState<string[]>([]);
   const [selectedDay, setSelectedDay] = useState(0);
-  const [isNightMode, setIsNightMode] = useState(false); // 🌙 Przełącznik dla nocy
+  const [isNightMode, setIsNightMode] = useState(false);
+  const [locationName, setLocationName] = useState<string | null>(null);
+  const [country, setCountry] = useState<string | null>(null);
 
-
-
-  // 🔥 Pobieranie pogody dla miasta
   const handleSearch = async () => {
+    if (!city) return;
     setLoading(true);
     setError("");
     try {
       const data = await getWeather(city);
       setWeather(data);
-      setWeatherCondition(data.current.condition.text.toLowerCase());
-      setHistory((prev) => [...new Set([city, ...prev])].slice(0, 5)); // Ostatnie 5 wyszukiwań
+      setLocationName(data.location.name);
+      setCountry(data.location.country);
     } catch (err) {
       setError("Nie znaleziono miasta.");
       setWeather(null);
@@ -33,21 +33,24 @@ export default function Home() {
     setLoading(false);
   };
 
-  // 📍 Pobieranie pogody dla aktualnej lokalizacji
   const getUserLocation = () => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           setError("");
+          setLoading(true);
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
           try {
             const data = await getWeather(`${lat},${lon}`);
             setWeather(data);
-            setWeatherCondition(data.current.condition.text.toLowerCase());
+            setLocationName(data.location.name);
+            setCountry(data.location.country);
+            setCity(data.location.name);
           } catch (err) {
-            setError("Nie udało się pobrać danych pogodowych dla Twojej lokalizacji.");
+            setError("Nie udało się pobrać danych pogodowych.");
           }
+          setLoading(false);
         },
         () => {
           setError("Nie udało się uzyskać dostępu do lokalizacji.");
@@ -58,121 +61,91 @@ export default function Home() {
     }
   };
 
-  // ⏳ Pobieranie prognozy godzinowej od aktualnej godziny do 24h w przód
+  // ⏳ Pobieranie prognozy godzinowej dla wybranego dnia
   const getUpcomingHours = () => {
     if (!weather || !weather.forecast) return [];
-  
-    const localTime = weather.location.localtime; // Pobieramy lokalny czas miasta
-    const localHour = parseInt(localTime.split(" ")[1].split(":")[0]); // Pobieramy aktualną godzinę w danym mieście
-  
-    // Pobieramy godziny dla wybranego dnia
+
+    const localTime = weather.location.localtime;
+    const localHour = parseInt(localTime.split(" ")[1].split(":")[0]);
+
     let hours = weather.forecast.forecastday[selectedDay].hour;
-  
-    // Jeśli wybrano dzisiejszy dzień → pokażemy godziny tylko od teraz w górę
+
     if (selectedDay === 0) {
       hours = hours.filter((hour: any) => parseInt(hour.time.split(" ")[1].split(":")[0]) >= localHour);
     }
-  
-    // Pokazujemy tylko godziny co 2 godziny
+
     return hours.filter((_, index) => index % 2 === 0);
   };
   
-  
 
-  const getBackgroundClass = (): string => {
-    if (!weather || !weather.forecast) return "bg-gradient-to-r from-blue-500 to-indigo-600";
+  const getBackgroundClass = (weather: any, isNight: boolean, selectedDay: number): string => {
+    if (!weather || !weather.forecast || !weather.forecast.forecastday[selectedDay]) return "dsunny";
   
-    let conditionText: string = "";
-  
-    if (isNightMode) {
-      // Pobieranie warunków pogodowych na noc (najniższa temperatura)
+    let conditionText = "";
+    
+    if (isNight) {
+      // Pobieranie godzin nocnych (18:00 - 06:00)
       const nightHours = weather.forecast.forecastday[selectedDay].hour.filter((hour: any) => {
         const hourNumber = parseInt(hour.time.split(" ")[1].split(":")[0]);
         return hourNumber >= 18 || hourNumber <= 6;
       });
   
-      const coldestHour = nightHours.reduce((min: any, curr: any) =>
-        curr.temp_c < min.temp_c ? curr : min
+      if (nightHours.length === 0) return "nclear";
+  
+      // Pobieramy najbliższą godzinę w przyszłości lub najzimniejszą nocną
+      const now = new Date();
+      const closestHour = nightHours.reduce((prev: any, curr: any) => 
+        Math.abs(new Date(curr.time).getHours() - now.getHours()) < 
+        Math.abs(new Date(prev.time).getHours() - now.getHours()) 
+          ? curr 
+          : prev
       );
   
-      conditionText = coldestHour.condition.text.toLowerCase();
+      conditionText = closestHour.condition.text.toLowerCase();
     } else {
+      // Pobieramy warunki dzienne
       conditionText = weather.forecast.forecastday[selectedDay].day.condition.text.toLowerCase();
     }
   
-    // 🔆 **DZIENNE TŁA**
-    if (!isNightMode) {
-      if (conditionText.includes("słonecznie") || conditionText.includes("bezchmurnie"))
-        return "bg-gradient-to-r from-yellow-400 via-orange-300 to-yellow-500 animate-slow-pulse";
+    console.log(`Aktualna pogoda dla ${selectedDay} dnia, tryb nocny: ${isNight}, warunki: ${conditionText}`);
   
-      if (conditionText.includes("częściowe zachmurzenie"))
-        return "bg-gradient-to-r from-gray-300 to-blue-400 animate-clouds-move";
+    if (conditionText.includes("bezchmurnie") || conditionText.includes("słonecznie")) return isNight ? "nclear moon stars" : "dsunny sun sun-rays";
+    if (conditionText.includes("częściowe zachmurzenie")) return isNight ? "ncloudy" : "dcloudy";
+    if (conditionText.includes("pochmurno") || conditionText.includes("całkowite zachmurzenie")) return isNight ? "nverycloudy" : "dverycloudy";
+    if (conditionText.includes("mgła") || conditionText.includes("zamglenie")) return isNight ? "nfog" : "dfog";
+    if (conditionText.includes("deszcz") || conditionText.includes("mżawka")) return isNight ? "nrainy" : "drainy";
+    if (conditionText.includes("burza") || conditionText.includes("ulewa")) return isNight ? "nstorm" : "dstorm";
+    if (conditionText.includes("śnieg")) return isNight ? "nsnowfall" : "dsnowfall";
+    if (conditionText.includes("grad")) return isNight ? "nhailstorm" : "dhailstorm";
+    if (conditionText.includes("wiatr") || conditionText.includes("wichura")) return isNight ? "nwindy" : "dwindy";
   
-      if (conditionText.includes("pochmurno") || conditionText.includes("całkowite zachmurzenie"))
-        return "bg-gradient-to-b from-gray-500 to-gray-700";
-  
-      if (conditionText.includes("mgła") || conditionText.includes("zamglenie"))
-        return "bg-gray-400 opacity-90 animate-mist-flow";
-  
-      if (conditionText.includes("mżawka") || conditionText.includes("deszcz") || conditionText.includes("przelotne opady"))
-        return "bg-blue-700 animate-rain-light";
-  
-      if (conditionText.includes("burza") || conditionText.includes("ulewa") || conditionText.includes("intensywne opady"))
-        return "bg-gray-900 text-white animate-thunderstorm";
-  
-      if (conditionText.includes("śnieg") || conditionText.includes("śnieżyca") || conditionText.includes("marznące opady"))
-        return "bg-white text-black animate-snowfall";
-  
-      if (conditionText.includes("lodowy deszcz") || conditionText.includes("grad"))
-        return "bg-blue-300 animate-hailstorm";
-  
-      if (conditionText.includes("wiatr") || conditionText.includes("zawieja") || conditionText.includes("wichura"))
-        return "bg-gradient-to-r from-gray-700 to-blue-900 animate-windy";
-  
-      return "bg-indigo-600";
-    }
-  
-    // 🌙 **NOCNE TŁA**
-    if (isNightMode) {
-      if (conditionText.includes("bezchmurnie") || conditionText.includes("słonecznie"))
-        return "bg-gray-900 animate-stars-twinkle";
-  
-      if (conditionText.includes("częściowe zachmurzenie"))
-        return "bg-gray-800 animate-clouds-move";
-  
-      if (conditionText.includes("pochmurno") || conditionText.includes("całkowite zachmurzenie"))
-        return "bg-gray-700";
-  
-      if (conditionText.includes("mgła") || conditionText.includes("zamglenie"))
-        return "bg-gray-600 opacity-90 animate-mist-flow";
-  
-      if (conditionText.includes("mżawka") || conditionText.includes("deszcz") || conditionText.includes("przelotne opady"))
-        return "bg-blue-900 animate-rain-light";
-  
-      if (conditionText.includes("burza") || conditionText.includes("ulewa") || conditionText.includes("intensywne opady"))
-        return "bg-black text-white animate-thunderstorm";
-  
-      if (conditionText.includes("śnieg") || conditionText.includes("śnieżyca") || conditionText.includes("marznące opady"))
-        return "bg-gray-400 text-black animate-snowfall";
-  
-      if (conditionText.includes("lodowy deszcz") || conditionText.includes("grad"))
-        return "bg-blue-800 animate-hailstorm";
-  
-      if (conditionText.includes("wiatr") || conditionText.includes("zawieja") || conditionText.includes("wichura"))
-        return "bg-gradient-to-r from-gray-900 to-blue-900 animate-windy";
-  
-      return "bg-gray-900";
-    }
-  
-    return "bg-indigo-600";
+    return isNight ? "nclear" : "dsunny";
   };
   
   
   
+  useEffect(() => {
+    if (weather) {
+      console.log("Aktualizacja pogody:", weather.forecast.forecastday[selectedDay]);
+      console.log("Wybrany dzień:", selectedDay);
+      console.log("Tryb nocny:", isNightMode);
+  
+      setWeatherCondition(getBackgroundClass(weather, isNightMode, selectedDay));
+    }
+  }, [weather, isNightMode, selectedDay]);
+  
+  
+
+  
   
 
   return (
-    <div className={`min-h-screen flex flex-col items-center justify-center p-6 transition-all ${getBackgroundClass()}`}>
+    
+    <Layout>
+
+<div className={`min-h-screen flex flex-col items-center justify-center p-6 transition-all ${weatherCondition}`}>
+{weatherCondition && weatherCondition.includes("dsunny") && <div className="sun"></div>}
+
       <h1 className="text-4xl font-bold mb-6">🌤 Sprawdź pogodę</h1>
       {/* 🔎 Pole wyszukiwania + przyciski */}
       <div className="flex flex-col sm:flex-row gap-4 items-center">
@@ -192,11 +165,20 @@ export default function Home() {
       </div>
 
         {/* 🌞🌙 Przełącznik między dniem a nocą */}
-        <div className="mt-4 flex items-center">
-        <p className="mr-3 text-lg font-semibold">Dzień</p>
-        <Switch isNightMode={isNightMode} setIsNightMode={setIsNightMode} />
-        <p className="ml-3 text-lg font-semibold">Noc</p>
-      </div>
+        <div className="mt-4 flex flex-col items-center">
+          <div className="flex items-center">
+            <p className="mr-3 text-lg font-semibold">Dzień</p>
+            <Switch isNightMode={isNightMode} setIsNightMode={setIsNightMode} />
+            <p className="ml-3 text-lg font-semibold">Noc</p>
+          </div>
+
+                    {/* 📍 Wyświetlanie miasta i kraju */}
+                    {locationName && country && (
+            <p className="text-lg font-semibold mt-2">
+              📍 {locationName}, {country}
+            </p>
+          )}
+        </div>
 
       {/* ⏳ Spinner ładowania */}
       {loading && (
@@ -243,55 +225,62 @@ export default function Home() {
       {isNightMode ? "Pogoda nocna" : "Pogoda dzienna"} na wybrany dzień
     </h2>
     <div className="flex items-center gap-4 mt-2">
-      {/* Pobieranie ikony i opisu warunków pogodowych */}
-      {isNightMode ? (
-        (() => {
-          // Pobieranie godzin nocnych (18:00 - 06:00)
-          const nightHours = weather.forecast.forecastday[selectedDay].hour.filter((hour: any) => {
-            const hourNumber = parseInt(hour.time.split(" ")[1].split(":")[0]);
-            return hourNumber >= 18 || hourNumber <= 6;
-          });
+    {isNightMode ? (() => {
+    // Pobieramy godziny nocne (18:00 - 06:00)
+    const nightHours = weather.forecast.forecastday[selectedDay].hour.filter((hour: any) => {
+        const hourNumber = parseInt(hour.time.split(" ")[1].split(":")[0]);
+        return hourNumber >= 18 || hourNumber <= 6;
+    });
 
-          // Znalezienie godziny z najniższą temperaturą
-          const coldestHour = nightHours.reduce((min: any, curr: any) =>
-            curr.temp_c < min.temp_c ? curr : min
-          );
+    if (nightHours.length === 0) {
+        console.warn("Brak danych o godzinach nocnych");
+        return null; // Jeśli nie ma danych nocnych, nie renderujemy niczego
+    }
 
-          return (
-            <>
-              <img 
-                src={coldestHour.condition.icon} 
-                alt={coldestHour.condition.text} 
-                className="w-16 h-16" 
-              />
-              <div>
-                <p className="text-3xl font-semibold">
-                  {coldestHour.temp_c}°C
-                </p>
-                <p className="text-gray-600 text-lg">
-                  {coldestHour.condition.text}
-                </p>
-              </div>
-            </>
-          );
-        })()
-      ) : (
+    // Pobieramy aktualną godzinę
+    const now = new Date();
+    const currentHour = now.getHours();
+
+    // Znajdujemy godzinę najbliższą obecnej
+    const closestHour = nightHours.reduce((prev: any, curr: any) =>
+        Math.abs(parseInt(curr.time.split(" ")[1].split(":")[0]) - currentHour) <
+        Math.abs(parseInt(prev.time.split(" ")[1].split(":")[0]) - currentHour)
+            ? curr
+            : prev
+    );
+
+    console.log("Wybrana godzina nocna:", closestHour);
+
+    return (
         <>
-          <img 
-            src={weather.forecast.forecastday[selectedDay].day.condition.icon} 
-            alt={weather.forecast.forecastday[selectedDay].day.condition.text} 
-            className="w-16 h-16" 
-          />
-          <div>
+            <img
+                src={closestHour.condition.icon}
+                alt={closestHour.condition.text}
+                className="w-16 h-16"
+            />
+            <div>
+                <p className="text-3xl font-semibold">{closestHour.temp_c}°C</p>
+                <p className="text-gray-600 text-lg">{closestHour.condition.text}</p>
+            </div>
+        </>
+    );
+})() : (
+    <>
+        <img
+            src={weather.forecast.forecastday[selectedDay].day.condition.icon}
+            alt={weather.forecast.forecastday[selectedDay].day.condition.text}
+            className="w-16 h-16"
+        />
+        <div>
             <p className="text-3xl font-semibold">
-              {weather.forecast.forecastday[selectedDay].day.maxtemp_c}°C
+                {weather.forecast.forecastday[selectedDay].day.maxtemp_c}°C
             </p>
             <p className="text-gray-600 text-lg">
-              {weather.forecast.forecastday[selectedDay].day.condition.text}
+                {weather.forecast.forecastday[selectedDay].day.condition.text}
             </p>
-          </div>
-        </>
-      )}
+        </div>
+    </>
+)}
     </div>
   </motion.div>
 )}
@@ -314,6 +303,9 @@ export default function Home() {
   </motion.div>
 )}
 
+
     </div>
+    </Layout>
+
   );
 }
