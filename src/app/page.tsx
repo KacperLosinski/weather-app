@@ -84,10 +84,10 @@ export default function Home() {
     let conditionText = "";
     
     if (isNight) {
-      // Pobieranie godzin nocnych (18:00 - 06:00)
+      // Pobieranie godzin nocnych (20:00 - 04:00)
       const nightHours = weather.forecast.forecastday[selectedDay].hour.filter((hour: any) => {
         const hourNumber = parseInt(hour.time.split(" ")[1].split(":")[0]);
-        return hourNumber >= 18 || hourNumber <= 6;
+        return hourNumber >= 20 || hourNumber <= 4;
       });
   
       if (nightHours.length === 0) return "nclear";
@@ -109,15 +109,54 @@ export default function Home() {
   
     console.log(`Aktualna pogoda dla ${selectedDay} dnia, tryb nocny: ${isNight}, warunki: ${conditionText}`);
   
-    if (conditionText.includes("bezchmurnie") || conditionText.includes("słonecznie")) return isNight ? "nclear moon stars" : "dsunny sun sun-rays";
-    if (conditionText.includes("częściowe zachmurzenie")) return isNight ? "ncloudy" : "dcloudy";
-    if (conditionText.includes("pochmurno") || conditionText.includes("całkowite zachmurzenie")) return isNight ? "nverycloudy" : "dverycloudy";
-    if (conditionText.includes("mgła") || conditionText.includes("zamglenie")) return isNight ? "nfog" : "dfog";
-    if (conditionText.includes("deszcz") || conditionText.includes("mżawka")) return isNight ? "nrainy" : "drainy";
-    if (conditionText.includes("burza") || conditionText.includes("ulewa")) return isNight ? "nstorm" : "dstorm";
-    if (conditionText.includes("śnieg")) return isNight ? "nsnowfall" : "dsnowfall";
-    if (conditionText.includes("grad")) return isNight ? "nhailstorm" : "dhailstorm";
-    if (conditionText.includes("wiatr") || conditionText.includes("wichura")) return isNight ? "nwindy" : "dwindy";
+    if (conditionText.includes("bezchmurnie") || conditionText.includes("słonecznie")) 
+      return isNight ? "nclear moon stars" : "dsunny sun sun-rays";
+  if (conditionText.includes("częściowe zachmurzenie")) 
+      return isNight ? "ncloudy cloud moon" : "dcloudy cloud sun";
+  if (conditionText.includes("zachmurzenie") || conditionText.includes("pochmurno")) 
+      return isNight ? "nverycloudy cloud" : "dverycloudy cloud";
+  if (conditionText.includes("zamglenie") || conditionText.includes("mgła") || conditionText.includes("mroźna mgła")) 
+      return isNight ? "nfog fog" : "dfog fog";
+  if (conditionText.includes("miejscowe opady deszczu w pobliżu") || conditionText.includes("miejscowe opady lekkiego deszczu") || 
+      conditionText.includes("lekki deszcz") || conditionText.includes("lekkie, przelotne opady deszczu")) 
+      return isNight ? "nrainy" : "drainy";
+  if (conditionText.includes("przejściowe, średnie opady deszczu") || conditionText.includes("średnie opady deszczu") || 
+      conditionText.includes("średnie lub ciężkie, przelotne opady deszczu")) 
+      return isNight ? "nveryrainy" : "dveryrainy";
+  if (conditionText.includes("przejściowe, ciężkie opady deszczu") || conditionText.includes("ciężkie opady deszczu") || 
+      conditionText.includes("przelotne deszcze nawalne")) 
+      return isNight ? "nheavyrain" : "dheavyrain";
+  if (conditionText.includes("miejscowe opady śniegu w pobliżu") || conditionText.includes("miejscowe, lekkie opady śniegu") || 
+      conditionText.includes("lekkie opady śniegu") || conditionText.includes("przejściowe, lekkie opady śniegu")) 
+      return isNight ? "nsnowfall" : "dsnowfall";
+  if (conditionText.includes("miejscowe, średnie opady śniegu") || conditionText.includes("średnie opady śniegu") || 
+      conditionText.includes("przejściowe, średnie lub ciężkie opady śniegu")) 
+      return isNight ? "nmoderatesnow" : "dmoderatesnow";
+  if (conditionText.includes("miejscowe, ciężkie opady śniegu") || conditionText.includes("ciężkie opady śniegu") || 
+      conditionText.includes("śnieżyca") || conditionText.includes("wiatr ze śniegiem")) 
+      return isNight ? "nheavysnowstorm" : "dheavysnowstorm";
+  if (conditionText.includes("mokry śnieg") || conditionText.includes("przejściowe, lekkie opady mokrego śniegu") || 
+      conditionText.includes("przejściowe, średnie lub ciężkie opady mokrego śniegu")) 
+      return isNight ? "nwet_snow" : "dwet_snow";
+  if (conditionText.includes("miejscowe opady śniegu z deszczem w pobliżu") || conditionText.includes("lekkie opady śniegu z deszczem") || 
+      conditionText.includes("średnie lub ciężkie opady śniegu z deszczem") || conditionText.includes("przejściowe, lekkie opady śniegu z deszczem") || 
+      conditionText.includes("przejściowe, średnie lub ciężkie opady śniegu z deszczem")) 
+      return isNight ? "nsnowrain" : "dsnowrain";
+  if (conditionText.includes("miejscowe wystąpienie mroźnej mżawki w pobliżu") || conditionText.includes("mroźna mżawka") || 
+      conditionText.includes("ciężka, mroźna mżawka")) 
+      return isNight ? "nfreezingdrizzle" : "dfreezingdrizzle";
+  if (conditionText.includes("miejscowe wystąpienie lekkiej mżawki") || conditionText.includes("lekka mżawka")) 
+      return isNight ? "ndrizzle" : "ddrizzle";
+  if (conditionText.includes("gwałtowne grzmienia w pobliżu")) 
+      return isNight ? "nstorm" : "dstorm";
+  if (conditionText.includes("miejscowe, lekkie opady deszczu z grzmieniem w okolicy") || 
+      conditionText.includes("miejscowe, średnie lub ciężkie opady deszczu z grzmieniem w okolicy")) 
+      return isNight ? "nrainthunder" : "drainthunder";
+  if (conditionText.includes("miejscowe, lekkie opady śniegu z grzmieniem w okolicy") || 
+      conditionText.includes("średnie lub ciężkie opady śniegu z grzmieniem w okolicy")) 
+      return isNight ? "nsnowthunder" : "dsnowthunder";
+  if (conditionText.includes("lekkie opady mroźnego deszczu") || conditionText.includes("średnie lub ciężkie opady mroźnego deszczu")) 
+      return isNight ? "nfreezingrain" : "dfreezingrain";
   
     return isNight ? "nclear" : "dsunny";
   };
@@ -134,17 +173,70 @@ export default function Home() {
     }
   }, [weather, isNightMode, selectedDay]);
   
-  
-
-  
-  
-
   return (
     
     <Layout>
 
 <div className={`min-h-screen flex flex-col items-center justify-center p-6 transition-all ${weatherCondition}`}>
 {weatherCondition && weatherCondition.includes("dsunny") && <div className="sun"></div>}
+{weatherCondition && weatherCondition.includes("nclear") && (
+  <>
+    <div className="moon"></div>
+    <div className="stars"></div>
+  </>
+)}
+{weatherCondition && weatherCondition.includes("dcloudy") && (
+  <>
+    <div className="sun"></div>
+    <div className="cloud"></div>
+    <div className="cloud"></div>
+    <div className="cloud"></div>
+    <div className="cloud"></div>
+
+  </>
+)}
+{weatherCondition && weatherCondition.includes("ncloudy") && (
+  <>
+    <div className="moon"></div>
+    <div className="cloud"></div>
+    <div className="cloud"></div>
+    <div className="cloud"></div>
+    <div className="cloud"></div>
+  </>
+)}
+
+{weatherCondition && weatherCondition.includes("dverycloudy") && (
+  <>
+    <div className="cloud"></div>
+    <div className="cloud"></div>
+    <div className="cloud"></div>
+    <div className="cloud"></div>
+  </>
+)}
+{weatherCondition && weatherCondition.includes("nverycloudy") && (
+  <>
+    <div className="cloud"></div>
+    <div className="cloud"></div>
+    <div className="cloud"></div>
+    <div className="cloud"></div>
+  </>
+)}
+{weatherCondition && weatherCondition.includes("dfog") && (
+  <>
+    <div className="fog"></div>
+    <div className="fog"></div>
+    <div className="fog"></div>                 
+  </>
+)}
+
+{weatherCondition && weatherCondition.includes("nfog") && (
+  <>
+    <div className="fog"></div>
+    <div className="fog"></div>
+    <div className="fog"></div>                 
+  </>
+)}
+
 
       <h1 className="text-4xl font-bold mb-6">🌤 Sprawdź pogodę</h1>
       {/* 🔎 Pole wyszukiwania + przyciski */}
@@ -226,10 +318,10 @@ export default function Home() {
     </h2>
     <div className="flex items-center gap-4 mt-2">
     {isNightMode ? (() => {
-    // Pobieramy godziny nocne (18:00 - 06:00)
+    // Pobieramy godziny nocne (20:00 - 04:00)
     const nightHours = weather.forecast.forecastday[selectedDay].hour.filter((hour: any) => {
         const hourNumber = parseInt(hour.time.split(" ")[1].split(":")[0]);
-        return hourNumber >= 18 || hourNumber <= 6;
+        return hourNumber >= 20 || hourNumber <= 4;
     });
 
     if (nightHours.length === 0) {

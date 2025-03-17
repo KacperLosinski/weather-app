@@ -24,17 +24,15 @@ z-index: 10;
 position: relative;
 }
 
-/* 🌞 Styl dla słonecznego dnia */
 .dsunny {
   height: 100vh;
   margin: 0;
   overflow: hidden;
   background: linear-gradient(180deg, #87CEEB, #4682B4);
-  animation: skyAnimation 20s infinite alternate ease-in-out;
+  animation: skyAnimation 60s infinite alternate ease-in-out;
   position: relative;
   z-index: -2;
   pointer-events: auto; /* ✅ Naprawia problem z blokowaniem kliknięć */
-
 }
 
 @keyframes skyAnimation {
@@ -51,34 +49,34 @@ position: relative;
 
 .dsunny .sun {
   position: absolute;
-  top: 10%;
-  left: 50%;
+  top: 10vh;
+  left: 0vw;
   transform: translateX(-50%);
-  width: 120px;
-  height: 120px;
+  width: 12vw;
+  height: 12vw;
   background: radial-gradient(circle, #FFD700, #FFA500);
   border-radius: 50%;
-  box-shadow: 0 0 60px rgba(255, 215, 0, 0.9);
-  animation: sunMovement 30s infinite linear;
+  box-shadow: 0 0 6vw rgba(255, 215, 0, 0.9);
+  animation: sunMovement 60s infinite linear;
   z-index: -1;
   pointer-events: auto;
 }
 
 @keyframes sunMovement {
   0% {
-      transform: translateX(-200px) translateY(50px) scale(1.1);
+      transform: translateX(0vw) translateY(5vh) scale(1.1);
   }
   25% {
-      transform: translateX(100px) translateY(-20px) scale(1.2);
+      transform: translateX(25vw) translateY(-2vh) scale(1.2);
   }
   50% {
-      transform: translateX(300px) translateY(-50px) scale(1.3);
+      transform: translateX(50vw) translateY(-5vh) scale(1.3);
   }
   75% {
-      transform: translateX(500px) translateY(-20px) scale(1.2);
+      transform: translateX(75vw) translateY(-2vh) scale(1.2);
   }
   100% {
-      transform: translateX(700px) translateY(50px) scale(1.1);
+      transform: translateX(100vw) translateY(5vh) scale(1.1);
   }
 }
 
@@ -91,9 +89,10 @@ position: relative;
   margin: 0;
   overflow: hidden;
   background: linear-gradient(180deg, #0b3d91, #1a1a40);
-  animation: nightSkyAnimation 20s infinite alternate ease-in-out;
+  animation: nightSkyAnimation 60s infinite alternate ease-in-out;
   position: relative;
-  z-index: -2;
+  z-index: -3;
+  color: #ffffff;
 }
 
 @keyframes nightSkyAnimation {
@@ -110,33 +109,33 @@ position: relative;
 
 .nclear .moon {
   position: absolute;
-  top: 15%;
-  left: 70%;
+  top: 15vh;
+  left: 0vw;
   transform: translateX(-50%);
-  width: 100px;
-  height: 100px;
+  width: 8vw;
+  height: 8vw;
   background: radial-gradient(circle, #f4f4f4, #c0c0c0);
   border-radius: 50%;
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
-  animation: moonMovement 30s infinite linear;
+  box-shadow: 0 0 4vw rgba(255, 255, 255, 0.8);
+  animation: moonMovement 60s infinite linear;
   z-index: -1;
 }
 
 @keyframes moonMovement {
   0% {
-      transform: translateX(-150px) translateY(30px) scale(1.1);
+      transform: translateX(0vw) translateY(3vh) scale(1.1);
   }
   25% {
-      transform: translateX(50px) translateY(-10px) scale(1.2);
+      transform: translateX(25vw) translateY(-1vh) scale(1.2);
   }
   50% {
-      transform: translateX(250px) translateY(-30px) scale(1.3);
+      transform: translateX(50vw) translateY(-3vh) scale(1.3);
   }
   75% {
-      transform: translateX(450px) translateY(-10px) scale(1.2);
+      transform: translateX(75vw) translateY(-1vh) scale(1.2);
   }
   100% {
-      transform: translateX(650px) translateY(30px) scale(1.1);
+      transform: translateX(100vw) translateY(3vh) scale(1.1);
   }
 }
 
@@ -147,7 +146,7 @@ position: relative;
   background: url('https://www.transparenttextures.com/patterns/stardust.png');
   opacity: 0.6;
   animation: twinkle 3s infinite alternate ease-in-out;
-  z-index: -1;
+  z-index: -2;
 }
 
 @keyframes twinkle {
@@ -156,40 +155,508 @@ position: relative;
 }
 
 
-/* 🌥️ Styl dla częściowego zachmurzenia w dzień */
+/* ⛅ Styl dla częściowego zachmurzenia w ciągu dnia */
 .dcloudy {
-  background: linear-gradient(to bottom, #B0C4DE, #D3D3D3);
-  color: #333;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #a0c4ff, #87CEEB);
+  animation: cloudySkyAnimation 60s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -3;
 }
 
-/* 🌙 Styl dla częściowego zachmurzenia w nocy */
+@keyframes cloudySkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #a0c4ff, #87CEEB);
+  }
+  50% {
+      background: linear-gradient(180deg, #87CEEB, #4682B4);
+  }
+  100% {
+      background: linear-gradient(180deg, #a0c4ff, #87CEEB);
+  }
+}
+
+.dcloudy .sun {
+  position: absolute;
+  top: 10vh;
+  left: 0vw;
+  transform: translateX(-50%);
+  width: 12vw;
+  height: 12vw;
+  background: radial-gradient(circle, #FFD700, #FFA500);
+  border-radius: 50%;
+  box-shadow: 0 0 6vw rgba(255, 215, 0, 0.9);
+  animation: sunMovement 60s infinite linear;
+  z-index: -1;
+  pointer-events: auto;
+}
+
+/* Styl dla realistycznych chmur */
+.dcloudy .cloud {
+  position: absolute;
+  top: 10vh;
+  left: -20vw;
+  width: 15vw;
+  height: 8vw;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 60px;
+  box-shadow: 3vw 2vw 4vw rgba(255, 255, 255, 0.5), 
+              -3vw 2vw 4vw rgba(255, 255, 255, 0.5),
+              2vw -1vw 3vw rgba(255, 255, 255, 0.6);
+  animation: cloudMovement 40s infinite linear;
+  opacity: 0.9;
+  z-index: -1;
+}
+
+@keyframes cloudMovement {
+  0% {
+      transform: translateX(-20vw);
+      opacity: 0.9;
+  }
+  50% {
+      transform: translateX(50vw);
+      opacity: 1;
+  }
+  100% {
+      transform: translateX(120vw);
+      opacity: 0.9;
+  }
+}
+
+/* Więcej chmur o różnych rozmiarach i pozycjach */
+.dcloudy .cloud:nth-child(2) {
+  top: 35vh;
+  left: -15vw;
+  width: 18vw;
+  height: 9vw;
+  animation-duration: 45s;
+}
+
+.dcloudy .cloud:nth-child(3) {
+  top: 50vh;
+  left: -20vw;
+  width: 12vw;
+  height: 6vw;
+  animation-duration: 35s;
+}
+
+.dcloudy .cloud:nth-child(4) {
+  top: 65vh;
+  left: -10vw;
+  width: 16vw;
+  height: 8vw;
+  animation-duration: 50s;
+}
+
+/* 🌙⛅ Styl dla częściowego zachmurzenia w nocy */
 .ncloudy {
-  background: linear-gradient(to bottom, #283747, #5D6D7E);
-  color: #f1f1f1;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0b3d91, #1a1a40);
+  animation: nightCloudySkyAnimation 20s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -3;
+  color: #ffffff;
 }
 
-/* ☁️ Styl dla całkowitego zachmurzenia w dzień */
+@keyframes nightCloudySkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #0b3d91, #1a1a40);
+  }
+  50% {
+      background: linear-gradient(180deg, #000033, #0b3d91);
+  }
+  100% {
+      background: linear-gradient(180deg, #0b3d91, #1a1a40);
+  }
+}
+
+.ncloudy .moon {
+  position: absolute;
+  top: 15vh;
+  left: 0vw;
+  transform: translateX(-50%);
+  width: 8vw;
+  height: 8vw;
+  background: radial-gradient(circle, #f4f4f4, #c0c0c0);
+  border-radius: 50%;
+  box-shadow: 0 0 4vw rgba(255, 255, 255, 0.8);
+  animation: moonMovement 60s infinite linear;
+  z-index: -2;
+}
+
+
+/* 🌙⛅ Chmury nocne */
+.ncloudy .cloud {
+  position: absolute;
+  top: 20vh;
+  left: -20vw;
+  width: 15vw;
+  height: 8vw;
+  background: rgba(200, 200, 200, 0.8);
+  border-radius: 60px;
+  box-shadow: 3vw 2vw 4vw rgba(200, 200, 200, 0.5), 
+              -3vw 2vw 4vw rgba(200, 200, 200, 0.5),
+              2vw -1vw 3vw rgba(200, 200, 200, 0.6);
+  animation: cloudMovementNight 40s infinite linear;
+  opacity: 0.8;
+  z-index: -1;
+}
+
+@keyframes cloudMovementNight {
+  0% {
+      transform: translateX(-20vw);
+      opacity: 0.8;
+  }
+  50% {
+      transform: translateX(50vw);
+      opacity: 1;
+  }
+  100% {
+      transform: translateX(120vw);
+      opacity: 0.8;
+  }
+}
+
+/* Różne chmury nocne */
+.ncloudy .cloud:nth-child(2) {
+  top: 35vh;
+  left: -15vw;
+  width: 18vw;
+  height: 9vw;
+  animation-duration: 45s;
+}
+
+.ncloudy .cloud:nth-child(3) {
+  top: 50vh;
+  left: -20vw;
+  width: 12vw;
+  height: 6vw;
+  animation-duration: 35s;
+}
+
+.ncloudy .cloud:nth-child(4) {
+  top: 65vh;
+  left: -10vw;
+  width: 16vw;
+  height: 8vw;
+  animation-duration: 50s;
+}
+
+
+/* ☁️ Styl dla całkowitego zachmurzenia w ciągu dnia */
 .dverycloudy {
-  background: linear-gradient(to bottom, #778899, #B0C4DE);
-  color: #222;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #B0BEC5, #78909C);
+  animation: overcastSkyAnimation 20s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
 }
 
-/* 🌌 Styl dla całkowitego zachmurzenia w nocy */
+@keyframes overcastSkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #B0BEC5, #78909C);
+  }
+  50% {
+      background: linear-gradient(180deg, #90A4AE, #607D8B);
+  }
+  100% {
+      background: linear-gradient(180deg, #B0BEC5, #78909C);
+  }
+}
+
+/* Styl dla gęstych chmur */
+.dverycloudy .cloud {
+  position: absolute;
+  top: 20vh;
+  left: -20vw;
+  width: 20vw;
+  height: 10vw;
+  background: rgba(190, 190, 190, 0.9);
+  border-radius: 100px;
+  box-shadow: 5vw 3vw 6vw rgba(190, 190, 190, 0.7), 
+              -5vw 3vw 6vw rgba(190, 190, 190, 0.7),
+              3vw -2vw 5vw rgba(190, 190, 190, 0.8);
+  animation: overcastCloudMovement 50s infinite linear;
+  opacity: 0.95;
+  z-index: -1;
+}
+
+@keyframes overcastCloudMovement {
+  0% {
+      transform: translateX(-25vw);
+      opacity: 0.95;
+  }
+  50% {
+      transform: translateX(50vw);
+      opacity: 1;
+  }
+  100% {
+      transform: translateX(130vw);
+      opacity: 0.95;
+  }
+}
+
+/* Różne chmury o dużej gęstości */
+.dverycloudy .cloud:nth-child(2) {
+  top: 35vh;
+  left: -15vw;
+  width: 22vw;
+  height: 12vw;
+  animation-duration: 55s;
+}
+
+.dverycloudy .cloud:nth-child(3) {
+  top: 50vh;
+  left: -20vw;
+  width: 18vw;
+  height: 9vw;
+  animation-duration: 45s;
+}
+
+.dverycloudy .cloud:nth-child(4) {
+  top: 65vh;
+  left: -10vw;
+  width: 24vw;
+  height: 14vw;
+  animation-duration: 60s;
+}
+
+/* 🌙☁️ Styl dla zachmurzonej nocy */
 .nverycloudy {
-  background: linear-gradient(to bottom, #2C3E50, #34495E);
-  color: #f1f1f1;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #263238, #1a1a2e);
+  animation: nightOvercastSkyAnimation 60s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
 }
 
-/* 🌫️ Styl dla mgły w dzień */
+@keyframes nightOvercastSkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #263238, #1a1a2e);
+  }
+  50% {
+      background: linear-gradient(180deg, #37474F, #102027);
+  }
+  100% {
+      background: linear-gradient(180deg, #263238, #1a1a2e);
+  }
+}
+
+/* Styl dla ciemnych chmur nocnych */
+.nverycloudy .cloud {
+  position: absolute;
+  top: 20vh;
+  left: -20vw;
+  width: 20vw;
+  height: 10vw;
+  background: rgba(80, 80, 80, 0.9);
+  border-radius: 100px;
+  box-shadow: 5vw 3vw 6vw rgba(80, 80, 80, 0.7), 
+              -5vw 3vw 6vw rgba(80, 80, 80, 0.7),
+              3vw -2vw 5vw rgba(80, 80, 80, 0.8);
+  animation: nightCloudMovement 60s infinite linear;
+  opacity: 0.95;
+  z-index: -1;
+}
+
+@keyframes nightCloudMovement {
+  0% {
+      transform: translateX(-30vw);
+      opacity: 0.95;
+  }
+  50% {
+      transform: translateX(50vw);
+      opacity: 1;
+  }
+  100% {
+      transform: translateX(130vw);
+      opacity: 0.95;
+  }
+}
+
+/* Różne warstwy chmur nocnych */
+.nverycloudy .cloud:nth-child(2) {
+  top: 35vh;
+  left: 0vw;
+  width: 22vw;
+  height: 12vw;
+  animation-duration: 55s;
+  z-index: -1;
+}
+
+.nverycloudy .cloud:nth-child(3) {
+  top: 50vh;
+  left: -20vw;
+  width: 18vw;
+  height: 9vw;
+  animation-duration: 45s;
+  z-index: -1;
+}
+
+.nverycloudy .cloud:nth-child(4) {
+  top: 65vh;
+  left: -10vw;
+  width: 24vw;
+  height: 14vw;
+  animation-duration: 60s;
+  z-index: -1;
+}
+
+
+/* 🌫️ Styl dla mgły w ciągu dnia */
 .dfog {
-  background: linear-gradient(to bottom, #D3D3D3, #C0C0C0);
-  color: #333;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #D3D3D3, #B0BEC5);
+  animation: foggySkyAnimation 20s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
 }
 
-/* 🌫️ Styl dla mgły w nocy */
+@keyframes foggySkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #D3D3D3, #B0BEC5);
+  }
+  50% {
+      background: linear-gradient(180deg, #E0E0E0, #90A4AE);
+  }
+  100% {
+      background: linear-gradient(180deg, #D3D3D3, #B0BEC5);
+  }
+}
+
+/* Styl dla mgły */
+.dfog .fog {
+  position: absolute;
+  top: 50vh;
+  left: -10vw;
+  width: 120vw;
+  height: 40vh;
+  background: rgba(200, 200, 200, 0.5);
+  filter: blur(10px);
+  animation: fogMovement 30s infinite linear;
+  z-index: -1;
+}
+
+@keyframes fogMovement {
+  0% {
+      transform: translateX(-10vw) translateY(5vh);
+      opacity: 0.7;
+  }
+  50% {
+      transform: translateX(5vw) translateY(-2vh);
+      opacity: 0.8;
+  }
+  100% {
+      transform: translateX(10vw) translateY(5vh);
+      opacity: 0.7;
+  }
+}
+
+/* Kolejne warstwy mgły dla efektu głębi */
+.dfog .fog:nth-child(2) {
+  top: 55vh;
+  left: -15vw;
+  width: 130vw;
+  height: 50vh;
+  opacity: 0.6;
+  filter: blur(15px);
+  animation-duration: 40s;
+  z-index: -1;
+}
+
+.dfog .fog:nth-child(3) {
+  top: 60vh;
+  left: -20vw;
+  width: 140vw;
+  height: 60vh;
+  opacity: 0.5;
+  filter: blur(20px);
+  animation-duration: 50s;
+  z-index: -1;
+}
+
+/* 🌫️🌙 Styl dla mgły w nocy */
 .nfog {
-  background: linear-gradient(to bottom, #5C6672, #8B939D);
-  color: #f1f1f1;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1a1a1a, #2c2c2c);
+  animation: foggyNightSkyAnimation 20s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
+}
+
+@keyframes foggyNightSkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #1a1a1a, #2c2c2c);
+  }
+  50% {
+      background: linear-gradient(180deg, #2a2a2a, #404040);
+  }
+  100% {
+      background: linear-gradient(180deg, #1a1a1a, #2c2c2c);
+  }
+}
+
+/* Styl dla mgły nocnej */
+.nfog .fog {
+  position: absolute;
+  top: 50vh;
+  left: -10vw;
+  width: 120vw;
+  height: 40vh;
+  background: rgba(100, 100, 100, 0.3);
+  filter: blur(12px);
+  animation: fogNightMovement 35s infinite linear;
+  z-index: -1;
+}
+
+@keyframes fogNightMovement {
+  0% {
+      transform: translateX(-10vw) translateY(5vh);
+      opacity: 0.5;
+  }
+  50% {
+      transform: translateX(5vw) translateY(-2vh);
+      opacity: 0.6;
+  }
+  100% {
+      transform: translateX(10vw) translateY(5vh);
+      opacity: 0.5;
+  }
+}
+
+/* Kolejne warstwy mgły dla efektu głębi w nocy */
+.nfog .fog:nth-child(2) {
+  top: 55vh;
+  left: -15vw;
+  width: 130vw;
+  height: 50vh;
+  opacity: 0.4;
+  filter: blur(18px);
+  animation-duration: 45s;
+  z-index: -1;
+}
+
+.nfog .fog:nth-child(3) {
+  top: 60vh;
+  left: -20vw;
+  width: 140vw;
+  height: 60vh;
+  opacity: 0.3;
+  filter: blur(25px);
+  animation-duration: 55s;
+  z-index: -1;
 }
 
 /* 🌧️ Styl dla deszczu w dzień */
