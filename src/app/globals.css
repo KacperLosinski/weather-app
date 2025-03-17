@@ -594,6 +594,7 @@ position: relative;
   animation: foggyNightSkyAnimation 20s infinite alternate ease-in-out;
   position: relative;
   z-index: -2;
+  color: #ffffff;
 }
 
 @keyframes foggyNightSkyAnimation {
@@ -659,17 +660,313 @@ position: relative;
   z-index: -1;
 }
 
-/* 🌧️ Styl dla deszczu w dzień */
+/* 🌧️ Styl dla lekkiego deszczu w ciągu dnia */
 .drainy {
-  background: linear-gradient(to bottom, #5F9EA0, #4682B4);
-  color: white;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #A9C9FF, #87A3D1);
+  animation: lightRainSkyAnimation 20s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
 }
 
-/* 🌧️ Styl dla deszczu w nocy */
-.nrainy {
-  background: linear-gradient(to bottom, #2C3E50, #5F9EA0);
-  color: #f1f1f1;
+@keyframes lightRainSkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #A9C9FF, #87A3D1);
+  }
+  50% {
+      background: linear-gradient(180deg, #BBD1E8, #7089B0);
+  }
+  100% {
+      background: linear-gradient(180deg, #A9C9FF, #87A3D1);
+  }
 }
+
+/* Styl dla lekkiego deszczu */
+.drainy .raindrop {
+  position: absolute;
+  top: -10vh;
+  width: 5px;
+  height: 30px;
+  background: rgba(173, 216, 230, 0.7);
+  border-radius: 2px;
+  animation: rainFall 3s linear infinite;
+  z-index: -1;
+}
+
+@keyframes rainFall {
+  0% {
+      transform: translateY(0vh);
+      opacity: 1;
+  }
+  100% {
+      transform: translateY(110vh);
+      opacity: 0;
+  }
+}
+
+/* Generowanie wielu kropli deszczu */
+.drainy .raindrop:nth-child(2) {
+  left: 10vw;
+  animation-duration: 1.2s;
+  z-index: -1;
+}
+
+.drainy .raindrop:nth-child(3) {
+  left: 20vw;
+  animation-duration: 1.4s;
+  z-index: -1;
+}
+
+.drainy .raindrop:nth-child(4) {
+  left: 30vw;
+  animation-duration: 1.6s;
+  z-index: -1;
+}
+
+.drainy .raindrop:nth-child(5) {
+  left: 40vw;
+  animation-duration: 1.3s;
+  z-index: -1;
+}
+
+.drainy .raindrop:nth-child(6) {
+  left: 50vw;
+  animation-duration: 1.5s;
+  z-index: -1;
+}
+
+.drainy .raindrop:nth-child(7) {
+  left: 60vw;
+  animation-duration: 1.7s;
+  z-index: -1;
+}
+
+.drainy .raindrop:nth-child(8) {
+  left: 70vw;
+  animation-duration: 1.2s;
+  z-index: -1;
+}
+
+.drainy .raindrop:nth-child(9) {
+  left: 80vw;
+  animation-duration: 1.6s;
+  z-index: -1;
+}
+
+.drainy .raindrop:nth-child(10) {
+  left: 90vw;
+  animation-duration: 1.4s;
+  z-index: -1;
+}
+
+
+/* 🌧️🌙 Styl dla lekkiego deszczu w nocy */
+.nrainy {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  animation: lightRainNightSkyAnimation 20s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
+  color: #ffffff;
+}
+
+@keyframes lightRainNightSkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  }
+  50% {
+      background: linear-gradient(180deg, #25253a, #131328);
+  }
+  100% {
+      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  }
+}
+
+/* Styl dla lekkiego deszczu nocnego */
+.nrainy .raindrop {
+  position: absolute;
+  top: -10vh; /* Deszcz zaczyna się powyżej ekranu */
+  width: 2px;
+  height: 10px;
+  background: rgba(135, 206, 250, 0.6); /* Kolor jaśniejszy dla efektu światła */
+  border-radius: 2px;
+  animation: rainFallNight 1.5s linear infinite;
+  z-index: -1;
+
+}
+
+@keyframes rainFallNight {
+  0% {
+      transform: translateY(0vh);
+      opacity: 1;
+  }
+  100% {
+      transform: translateY(110vh);
+      opacity: 0;
+  }
+}
+
+/* Generowanie wielu kropli deszczu */
+.nrainy .raindrop:nth-child(2) {
+  left: 10vw;
+  animation-duration: 1.2s;
+}
+
+.nrainy .raindrop:nth-child(3) {
+  left: 20vw;
+  animation-duration: 1.4s;
+}
+
+.nrainy .raindrop:nth-child(4) {
+  left: 30vw;
+  animation-duration: 1.6s;
+}
+
+.nrainy .raindrop:nth-child(5) {
+  left: 40vw;
+  animation-duration: 1.3s;
+}
+
+.nrainy .raindrop:nth-child(6) {
+  left: 50vw;
+  animation-duration: 1.5s;
+}
+
+.nrainy .raindrop:nth-child(7) {
+  left: 60vw;
+  animation-duration: 1.7s;
+}
+
+.nrainy .raindrop:nth-child(8) {
+  left: 70vw;
+  animation-duration: 1.2s;
+}
+
+.nrainy .raindrop:nth-child(9) {
+  left: 80vw;
+  animation-duration: 1.6s;
+}
+
+.nrainy .raindrop:nth-child(10) {
+  left: 90vw;
+  animation-duration: 1.4s;
+}
+
+/* 🌧️ Styl dla średniego i ciezkiego deszczu w ciągu dnia */
+.dmoderaterain, .dheavyrain {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #92A9BD, #7089B0);
+  animation: moderateRainSkyAnimation 20s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
+}
+
+@keyframes moderateRainSkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #92A9BD, #7089B0);
+  }
+  50% {
+      background: linear-gradient(180deg, #A0B6C8, #5E7A99);
+  }
+  100% {
+      background: linear-gradient(180deg, #92A9BD, #7089B0);
+  }
+}
+
+/* 🌧️ Średnie opady deszczu */
+.dmoderaterain .raindrop, 
+.dheavyrain .raindrop {
+  position: absolute;
+  top: -10vh; /* Każda kropla zaczyna na innej wysokości */
+  width: 2px;
+  height: 12px;
+  background: rgba(135, 206, 250, 0.8);
+  border-radius: 2px;
+  animation: rainFallModerate linear infinite;
+  z-index: -1;
+
+  /* 🔹 Poprawione rozmieszczenie kropli na całej szerokości ekranu */
+  left: calc(random() * 100vw);
+  animation-duration: calc(0.8s + random() * 1.2s);
+  animation-delay: calc(random() * -1s); /* Losowe opóźnienie */
+}
+
+@keyframes rainFallModerate {
+  0% {
+    transform: translateY(0vh);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+
+
+
+
+
+/* 🌧️🌙 Styl dla średnich opadów deszczu w nocy */
+.nmoderaterain, .nheavyrain {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  animation: moderateRainSkyAnimation 20s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
+  color: #ffffff;
+}
+                                                                 
+@keyframes moderateRainNightSkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  }
+  50% {
+      background: linear-gradient(180deg, #25253a, #131328);
+  }
+  100% {
+      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  }
+}
+
+/* Styl dla średniego deszczu nocnego */
+.nmoderaterain, .nheavyrain .raindrop {
+  position: absolute;
+  top: -10vh; /* Każda kropla zaczyna na innej wysokości */
+  width: 2px;
+  height: 12px;
+  background: rgba(173, 216, 230, 0.6); /* Jaśniejsze krople dla efektu światła */
+  border-radius: 2px;
+  animation: rainFallModerate linear infinite;
+  z-index: -1;
+
+  /* 🔹 Poprawione rozmieszczenie kropli na całej szerokości ekranu */
+  left: calc(random() * 100vw);
+  animation-duration: calc(0.8s + random() * 1.2s);
+  animation-delay: calc(random() * -1s); /* Losowe opóźnienie */
+}
+
+@keyframes rainFallModerateNight {
+  0% {
+      transform: translateY(0vh);
+      opacity: 1;
+  }
+  100% {
+      transform: translateY(110vh);
+      opacity: 0;
+  }
+}
+
+
+
+
 
 /* ⛈️ Styl dla burzy w dzień */
 .dstorm {

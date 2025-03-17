@@ -119,13 +119,13 @@ export default function Home() {
       return isNight ? "nfog fog" : "dfog fog";
   if (conditionText.includes("miejscowe opady deszczu w pobliżu") || conditionText.includes("miejscowe opady lekkiego deszczu") || 
       conditionText.includes("lekki deszcz") || conditionText.includes("lekkie, przelotne opady deszczu")) 
-      return isNight ? "nrainy" : "drainy";
+      return isNight ? "nrainy raindrop" : "drainy raindrop";
   if (conditionText.includes("przejściowe, średnie opady deszczu") || conditionText.includes("średnie opady deszczu") || 
       conditionText.includes("średnie lub ciężkie, przelotne opady deszczu")) 
-      return isNight ? "nveryrainy" : "dveryrainy";
+      return isNight ? "nmoderaterain raindrop" : "dmoderaterain raindrop";
   if (conditionText.includes("przejściowe, ciężkie opady deszczu") || conditionText.includes("ciężkie opady deszczu") || 
       conditionText.includes("przelotne deszcze nawalne")) 
-      return isNight ? "nheavyrain" : "dheavyrain";
+      return isNight ? "nheavyrain raindrop" : "dheavyrain raindrop";
   if (conditionText.includes("miejscowe opady śniegu w pobliżu") || conditionText.includes("miejscowe, lekkie opady śniegu") || 
       conditionText.includes("lekkie opady śniegu") || conditionText.includes("przejściowe, lekkie opady śniegu")) 
       return isNight ? "nsnowfall" : "dsnowfall";
@@ -236,6 +236,97 @@ export default function Home() {
     <div className="fog"></div>                 
   </>
 )}
+{weatherCondition && weatherCondition.includes("drainy") && (
+  <>
+    <div className="raindrop"></div>
+    <div className="raindrop"></div>
+    <div className="raindrop"></div>   
+    <div className="raindrop"></div>
+    <div className="raindrop"></div>
+    <div className="raindrop"></div>  
+    <div className="raindrop"></div>
+    <div className="raindrop"></div>
+    <div className="raindrop"></div>  
+    <div className="raindrop"></div>              
+  </>
+)}
+{weatherCondition && weatherCondition.includes("nrainy") && (
+  <>
+    <div className="raindrop"></div>
+    <div className="raindrop"></div>
+    <div className="raindrop"></div>   
+    <div className="raindrop"></div>
+    <div className="raindrop"></div>
+    <div className="raindrop"></div>  
+    <div className="raindrop"></div>
+    <div className="raindrop"></div>
+    <div className="raindrop"></div>  
+    <div className="raindrop"></div>              
+  </>
+)}
+{weatherCondition && weatherCondition.includes("dmoderaterain") && (
+ <>
+ {Array.from({ length: 500 }).map((_, i) => (
+   <div 
+     key={i} 
+     className="raindrop" 
+     style={{ 
+       left: `${Math.random() * 100}vw`, 
+       animationDuration: `${0.8 + Math.random() * 1.2}s`,
+       animationDelay: `${Math.random() * -1}s`
+     }} 
+   />
+ ))}
+</>
+)}
+
+{weatherCondition && weatherCondition.includes("nmoderaterain") && (
+ <>
+ {Array.from({ length: 500 }).map((_, i) => (
+   <div 
+     key={i} 
+     className="raindrop" 
+     style={{ 
+       left: `${Math.random() * 100}vw`, 
+       animationDuration: `${0.8 + Math.random() * 1.2}s`,
+       animationDelay: `${Math.random() * -1}s`
+     }} 
+   />
+ ))}
+</>
+)}
+{weatherCondition && weatherCondition.includes("dheavyerain") && (
+ <>
+ {Array.from({ length: 1500 }).map((_, i) => (
+   <div 
+     key={i} 
+     className="raindrop" 
+     style={{ 
+       left: `${Math.random() * 100}vw`, 
+       animationDuration: `${0.8 + Math.random() * 1.2}s`,
+       animationDelay: `${Math.random() * -1}s`
+     }} 
+   />
+ ))}
+</>
+)}
+
+{weatherCondition && weatherCondition.includes("nheavyrain") && (
+ <>
+ {Array.from({ length: 1500 }).map((_, i) => (
+   <div 
+     key={i} 
+     className="raindrop" 
+     style={{ 
+       left: `${Math.random() * 100}vw`, 
+       animationDuration: `${0.8 + Math.random() * 1.2}s`,
+       animationDelay: `${Math.random() * -1}s`
+     }} 
+   />
+ ))}
+</>
+)}
+
 
 
       <h1 className="text-4xl font-bold mb-6">🌤 Sprawdź pogodę</h1>
