@@ -826,7 +826,7 @@ export default function Home() {
 
 
 {/* 🔄 Prognoza godzinowa dla wybranego dnia */}
-<div className="overflow-x-auto flex gap-4 p-2 mt-4">
+<div className="overflow-x-auto flex gap-4 p-2 mt-4 w-[75vw] sm:w-full">
   {getUpcomingHours().map((hour: any, index: number) => (
     <div key={index} className="flex flex-col items-center p-2 border rounded-lg bg-gray-100 shadow-sm min-w-[80px]">
       <p className="text-sm font-semibold">{hour.time.split(" ")[1]}</p>
@@ -836,6 +836,8 @@ export default function Home() {
     </div>
   ))}
 </div>
+
+
 
   </motion.div>
 )}
