@@ -436,6 +436,7 @@ position: relative;
   animation: nightOvercastSkyAnimation 60s infinite alternate ease-in-out;
   position: relative;
   z-index: -2;
+  color: #ffffff;
 }
 
 @keyframes nightOvercastSkyAnimation {
@@ -937,7 +938,8 @@ position: relative;
 }
 
 /* Styl dla średniego deszczu nocnego */
-.nmoderaterain, .nheavyrain .raindrop {
+.nmoderaterain .raindrop, 
+.nheavyrain .raindrop {
   position: absolute;
   top: -10vh; /* Każda kropla zaczyna na innej wysokości */
   width: 2px;
@@ -965,53 +967,660 @@ position: relative;
 }
 
 
+/* ❄️ Styl dla lekkich opadów śniegu w ciągu dnia */
+.dlightsnow, .dmoderatesnow, .dheavysnow, .dwetSnow {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #E0F7FA, #B3E5FC);
+  animation: lightSnowSkyAnimation 20s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
+}
 
+@keyframes lightSnowSkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #E0F7FA, #B3E5FC);
+  }
+  50% {
+      background: linear-gradient(180deg, #F0FFFF, #81D4FA);
+  }
+  100% {
+      background: linear-gradient(180deg, #E0F7FA, #B3E5FC);
+  }
+}
 
+/* Styl dla lekkiego śniegu */
+.dlightsnow .snowflake,
+.dmoderatesnow .snowflake,
+.dheavysnow .snowflake {
+  position: absolute;
+  top: -10vh; /* Płatki zaczynają wyżej */
+  width: 5px;
+  height: 5px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: snowFallLight linear infinite;
+  z-index: -1;
 
-/* ⛈️ Styl dla burzy w dzień */
+  /* Rozmieszczenie śniegu na całej szerokości */
+  left: calc(random() * 100vw);
+  animation-duration: calc(3s + random() * 2s);
+  animation-delay: calc(random() * -2s); /* Losowe opóźnienie */
+}
+
+@keyframes snowFallLight {
+  0% {
+    transform: translateY(0vh) translateX(0vw);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(50vh) translateX(2vw);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(110vh) translateX(-2vw);
+    opacity: 0;
+  }
+}
+
+/* ❄️🌙 Styl dla lekkich opadów śniegu w nocy */
+.nlightsnow, .nmoderatesnow, .nheavysnow, .nwetSnow {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  animation: lightSnowNightSkyAnimation 20s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
+  color: #ffffff;
+}
+
+@keyframes lightSnowNightSkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  }
+  50% {
+      background: linear-gradient(180deg, #25253a, #131328);
+  }
+  100% {
+      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  }
+}
+
+/* Styl dla lekkiego śniegu nocnego */
+.nlightsnow .snowflake,
+.nmoderatesnow .snowflake,
+.nheavysnow .snowflake {
+  position: absolute;
+  top: -10vh; /* Płatki zaczynają wyżej */
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: snowFallLight linear infinite;
+  z-index: -1;
+
+  /* Rozmieszczenie śniegu na całej szerokości */
+  left: calc(random() * 100vw);
+  animation-duration: calc(3s + random() * 2s);
+  animation-delay: calc(random() * -2s); /* Losowe opóźnienie */
+}
+
+/* ❄️🌧️ Styl dla mokrego śniegu w dzień i noc */
+
+/* ❄️ Płatki mokrego śniegu */
+.dwetSnow .snowflake, 
+.nwetSnow .snowflake {
+  position: absolute;
+  top: -10vh; /* Płatki zaczynają wyżej */
+  width: 7px; /* Większe, cięższe płatki mokrego śniegu */
+  height: 7px;
+  background: rgba(220, 220, 220, 0.9); /* Bardziej szary kolor */
+  border-radius: 50%;
+  opacity: 0.95;
+  animation: snowFallWet linear infinite;
+  z-index: -1;
+
+  /* Rozmieszczenie śniegu na całej szerokości */
+  left: calc(random() * 100vw);
+  animation-duration: calc(2.5s + random() * 2s);
+  animation-delay: calc(random() * -2s);
+}
+
+@keyframes snowFallWet {
+  0% {
+    transform: translateY(0vh) translateX(0vw);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(50vh) translateX(1vw) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) translateX(-1vw) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* ❄️🌧️ Styl dla śniegu z deszczem w ciągu dnia */
+.dsnowrain {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #D6EAF8, #A9CCE3);
+  animation: snowRainDaySkyAnimation 20s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
+}
+
+@keyframes snowRainDaySkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #D6EAF8, #A9CCE3);
+  }
+  50% {
+      background: linear-gradient(180deg, #EBF5FB, #85C1E9);
+  }
+  100% {
+      background: linear-gradient(180deg, #D6EAF8, #A9CCE3);
+  }
+}
+
+/* Styl dla śniegu z deszczem */
+.dsnowrain .raindrop, 
+.dsnowrain .snowflake {
+  position: absolute;
+  top: calc(-10vh - (random() * 10vh));
+  border-radius: 50%;
+  opacity: 0.9;
+  z-index: -1;
+  left: calc(random() * 100vw);
+  animation-delay: calc(random() * -2s);
+}
+
+/* Krople deszczu */
+.dsnowrain .raindrop {
+  width: 2px;
+  height: 12px;
+  background: rgba(135, 206, 250, 0.8);
+  animation: rainFallSnow linear infinite;
+  animation-duration: calc(0.8s + random() * 1.2s);
+}
+
+/* Płatki śniegu */
+.dsnowrain .snowflake {
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.9);
+  animation: snowFallSnowRain linear infinite;
+  animation-duration: calc(3s + random() * 2s);
+}
+
+@keyframes rainFallSnow {
+  0% {
+    transform: translateY(0vh);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+
+@keyframes snowFallSnowRain {
+  0% {
+    transform: translateY(0vh) translateX(0vw);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(50vh) translateX(2vw);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(110vh) translateX(-2vw);
+    opacity: 0;
+  }
+}
+/* ❄️🌧️ Styl dla śniegu z deszczem w nocy */
+.nsnowrain {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1a1a2e, #0f0f1a); /* Ciemniejsze tło na noc */
+  animation: snowRainNightSkyAnimation 20s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
+  color: #ffffff;
+}
+
+@keyframes snowRainNightSkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  }
+  50% {
+      background: linear-gradient(180deg, #25253a, #131328);
+  }
+  100% {
+      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  }
+}
+/* Styl dla śniegu z deszczem w nocy */
+.nsnowrain .raindrop, 
+.nsnowrain .snowflake {
+  position: absolute;
+  top: -10vh;
+  border-radius: 50%;
+  opacity: 0.9;
+  z-index: -1;
+  left: calc(random() * 100vw);
+  animation-delay: calc(random() * -2s);
+}
+
+/* Krople deszczu */
+.nsnowrain .raindrop {
+  width: 2px;
+  height: 12px;
+  background: rgba(135, 206, 250, 0.6);
+  animation: rainFallSnow linear infinite;
+  animation-duration: calc(0.8s + random() * 1.2s);
+}
+
+/* Płatki śniegu */
+.nsnowrain .snowflake {
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  animation: snowFallSnowRain linear infinite;
+  animation-duration: calc(3s + random() * 2s);
+}
+
+@keyframes rainFallSnow {
+  0% {
+    transform: translateY(0vh);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+
+@keyframes snowFallSnowRain {
+  0% {
+    transform: translateY(0vh) translateX(0vw);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(50vh) translateX(2vw);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(110vh) translateX(-2vw);
+    opacity: 0;
+  }
+}
+
+/* ❄️🌨️🌧️ Styl dla gradu w dzień */
+.dfreezingdrizzle {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #D6EAF8, #A9CCE3); /* Zimowe, lodowe kolory */
+  animation: freezingDrizzleDaySkyAnimation 20s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
+}
+
+@keyframes freezingDrizzleDaySkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #D6EAF8, #A9CCE3);
+  }
+  50% {
+      background: linear-gradient(180deg, #EBF5FB, #85C1E9);
+  }
+  100% {
+      background: linear-gradient(180deg, #D6EAF8, #A9CCE3);
+  }
+}
+
+/* ❄️🌨️🌧️ Styl dla gradu w nocy */
+.nfreezingdrizzle {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1a1a2e, #0f0f1a); /* Ciemne, zimowe kolory */
+  animation: freezingDrizzleNightSkyAnimation 20s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
+}
+
+@keyframes freezingDrizzleNightSkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  }
+  50% {
+      background: linear-gradient(180deg, #25253a, #131328);
+  }
+  100% {
+      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  }
+}
+
+/* ❄️ Spadające kule gradu */
+.dfreezingdrizzle .hailstone, .nfreezingdrizzle .hailstone {
+  position: absolute;
+  top: -10vh;
+  width: 6px;
+  height: 6px;
+  background: rgba(200, 230, 255, 0.9); /* Lodowy kolor gradu */
+  border-radius: 50%;
+  opacity: 0.9;
+  animation: hailFall linear infinite;
+  z-index: -1;
+
+  /* Rozmieszczenie gradu na całej szerokości */
+  left: calc(random() * 100vw);
+  animation-duration: calc(0.5s + random() * 0.8s);
+  animation-delay: calc(random() * -1s);
+}
+
+@keyframes hailFall {
+  0% {
+    transform: translateY(0vh) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* ⛈️ Gwałtowne grzmoty i burza w ciągu dnia */
 .dstorm {
-  background: linear-gradient(to bottom, #4F4F4F, #8B0000);
-  color: white;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #4A536B, #2C3E50);
+  animation: stormDaySkyAnimation 10s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
+  color: #ffffff;
 }
 
-/* ⛈️ Styl dla burzy w nocy */
+@keyframes stormDaySkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #4A536B, #2C3E50);
+  }
+  50% {
+      background: linear-gradient(180deg, #616A79, #374A59);
+  }
+  100% {
+      background: linear-gradient(180deg, #4A536B, #2C3E50);
+  }
+}
+
+/* ⛈️ Gwałtowne grzmoty i burza w nocy */
 .nstorm {
-  background: linear-gradient(to bottom, #1C1C1C, #800000);
-  color: #f1f1f1;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  animation: stormNightSkyAnimation 10s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
+  color: #ffffff;
 }
 
-/* ❄️ Styl dla śniegu w dzień */
-.dsnowfall {
-  background: linear-gradient(to bottom, #E0FFFF, #B0E0E6);
-  color: #333;
+@keyframes stormNightSkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  }
+  50% {
+      background: linear-gradient(180deg, #25253a, #131328);
+  }
+  100% {
+      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  }
 }
 
-/* ❄️ Styl dla śniegu w nocy */
-.nsnowfall {
-  background: linear-gradient(to bottom, #4B6EAF, #AAB7B8);
-  color: #f1f1f1;
+/* ⚡ Efekty piorunów */
+.dstorm .lightning, .nstorm .lightning {
+  position: absolute;
+  top: 0;
+  left: calc(random() * 100vw);
+  width: 3px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  animation: lightningFlash 5s infinite ease-in-out;
+  z-index: -1;
 }
 
-/* 🧊 Styl dla gradu w dzień */
-.dhailstorm {
-  background: linear-gradient(to bottom, #A9A9A9, #DCDCDC);
-  color: #222;
+@keyframes lightningFlash {
+  0%, 95% {
+    opacity: 0;
+  }
+  96% {
+    opacity: 1;
+  }
+  98% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
-/* 🧊 Styl dla gradu w nocy */
-.nhailstorm {
-  background: linear-gradient(to bottom, #2E4053, #ABB2B9);
-  color: #f1f1f1;
+/* ⛈️🌧️ Burza z deszczem w ciągu dnia */
+.dstormrain {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #4A536B, #2C3E50);
+  animation: stormRainDaySkyAnimation 10s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
+  color: #ffffff;
 }
 
-/* 💨 Styl dla wietrznej pogody w dzień */
-.dwindy {
-  background: linear-gradient(to bottom, #A9A9A9, #87CEEB);
-  color: #333;
+@keyframes stormRainDaySkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #4A536B, #2C3E50);
+  }
+  50% {
+      background: linear-gradient(180deg, #616A79, #374A59);
+  }
+  100% {
+      background: linear-gradient(180deg, #4A536B, #2C3E50);
+  }
 }
 
-/* 💨 Styl dla wietrznej pogody w nocy */
-.nwindy {
-  background: linear-gradient(to bottom, #34495E, #5D6D7E);
-  color: #f1f1f1;
+/* ⛈️🌧️ Burza z deszczem w nocy */
+.nstormrain {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  animation: stormRainNightSkyAnimation 10s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
+  color: #ffffff;
+}
+
+@keyframes stormRainNightSkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  }
+  50% {
+      background: linear-gradient(180deg, #25253a, #131328);
+  }
+  100% {
+      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  }
+}
+
+/* ⚡ Efekty piorunów */
+.dstormrain .lightning, .nstormrain .lightning {
+  position: absolute;
+  top: 0;
+  left: calc(random() * 100vw);
+  width: 3px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  animation: lightningFlash 5s infinite ease-in-out;
+  z-index: -1;
+}
+
+@keyframes lightningFlash {
+  0%, 95% {
+    opacity: 0;
+  }
+  96% {
+    opacity: 1;
+  }
+  98% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* 🌧️ Intensywny deszcz */
+.dstormrain .raindrop, .nstormrain .raindrop {
+  position: absolute;
+  top: -10vh;
+  width: 2px;
+  height: 15px;
+  background: rgba(135, 206, 250, 0.7);
+  border-radius: 2px;
+  animation: rainFallStorm linear infinite;
+  z-index: -1;
+
+  /* Rozmieszczenie deszczu na całej szerokości */
+  left: calc(random() * 100vw);
+  animation-duration: calc(0.6s + random() * 1.0s);
+  animation-delay: calc(random() * -1s);
+}
+
+@keyframes rainFallStorm {
+  0% {
+    transform: translateY(0vh);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+
+/* ⛈️❄️ Burza śnieżna w ciągu dnia */
+.dstormsnow {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #4A536B, #2C3E50);
+  animation: stormSnowDaySkyAnimation 10s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
+  color: #ffffff;
+}
+
+@keyframes stormSnowDaySkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #4A536B, #2C3E50);
+  }
+  50% {
+      background: linear-gradient(180deg, #616A79, #374A59);
+  }
+  100% {
+      background: linear-gradient(180deg, #4A536B, #2C3E50);
+  }
+}
+
+/* ⛈️❄️ Burza śnieżna w nocy */
+.nstormsnow {
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  animation: stormSnowNightSkyAnimation 10s infinite alternate ease-in-out;
+  position: relative;
+  z-index: -2;
+  color: #ffffff;
+}
+
+@keyframes stormSnowNightSkyAnimation {
+  0% {
+      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  }
+  50% {
+      background: linear-gradient(180deg, #25253a, #131328);
+  }
+  100% {
+      background: linear-gradient(180deg, #1a1a2e, #0f0f1a);
+  }
+}
+
+/* ⚡ Efekty piorunów */
+.dstormsnow .lightning, .nstormsnow .lightning {
+  position: absolute;
+  top: 0;
+  left: calc(random() * 100vw);
+  width: 3px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  animation: lightningFlash 5s infinite ease-in-out;
+  z-index: -1;
+}
+
+@keyframes lightningFlash {
+  0%, 95% {
+    opacity: 0;
+  }
+  96% {
+    opacity: 1;
+  }
+  98% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ❄️ Intensywny śnieg */
+.dstormsnow .snowflake, .nstormsnow .snowflake {
+  position: absolute;
+  top: -10vh;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  animation: snowFallStorm linear infinite;
+  z-index: -1;
+
+  /* Rozmieszczenie śniegu na całej szerokości */
+  left: calc(random() * 100vw);
+  animation-duration: calc(2s + random() * 2s);
+  animation-delay: calc(random() * -2s);
+}
+
+@keyframes snowFallStorm {
+  0% {
+    transform: translateY(0vh) translateX(0vw);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(50vh) translateX(3vw);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(110vh) translateX(-3vw);
+    opacity: 0;
+  }
 }

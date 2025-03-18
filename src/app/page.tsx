@@ -118,7 +118,7 @@ export default function Home() {
   if (conditionText.includes("zamglenie") || conditionText.includes("mgła") || conditionText.includes("mroźna mgła")) 
       return isNight ? "nfog fog" : "dfog fog";
   if (conditionText.includes("miejscowe opady deszczu w pobliżu") || conditionText.includes("miejscowe opady lekkiego deszczu") || 
-      conditionText.includes("lekki deszcz") || conditionText.includes("lekkie, przelotne opady deszczu")) 
+      conditionText.includes("lekki deszcz") || conditionText.includes("lekkie, przelotne opady deszczu") || conditionText.includes("miejscowe wystąpienie lekkiej mżawki") || conditionText.includes("lekka mżawka"))
       return isNight ? "nrainy raindrop" : "drainy raindrop";
   if (conditionText.includes("przejściowe, średnie opady deszczu") || conditionText.includes("średnie opady deszczu") || 
       conditionText.includes("średnie lub ciężkie, przelotne opady deszczu")) 
@@ -128,36 +128,32 @@ export default function Home() {
       return isNight ? "nheavyrain raindrop" : "dheavyrain raindrop";
   if (conditionText.includes("miejscowe opady śniegu w pobliżu") || conditionText.includes("miejscowe, lekkie opady śniegu") || 
       conditionText.includes("lekkie opady śniegu") || conditionText.includes("przejściowe, lekkie opady śniegu")) 
-      return isNight ? "nsnowfall" : "dsnowfall";
+      return isNight ? "nlightsnow snowflake" : "dlightsnow snowflake";
   if (conditionText.includes("miejscowe, średnie opady śniegu") || conditionText.includes("średnie opady śniegu") || 
       conditionText.includes("przejściowe, średnie lub ciężkie opady śniegu")) 
-      return isNight ? "nmoderatesnow" : "dmoderatesnow";
+      return isNight ? "nmoderatesnow snowflake" : "dmoderatesnow snowflake";
   if (conditionText.includes("miejscowe, ciężkie opady śniegu") || conditionText.includes("ciężkie opady śniegu") || 
       conditionText.includes("śnieżyca") || conditionText.includes("wiatr ze śniegiem")) 
-      return isNight ? "nheavysnowstorm" : "dheavysnowstorm";
+      return isNight ? "nheavysnow snowflake" : "dheavysnow snowflake";
   if (conditionText.includes("mokry śnieg") || conditionText.includes("przejściowe, lekkie opady mokrego śniegu") || 
       conditionText.includes("przejściowe, średnie lub ciężkie opady mokrego śniegu")) 
-      return isNight ? "nwet_snow" : "dwet_snow";
+      return isNight ? "nwetSnow snowflake" : "dwetSnow snowflake";
   if (conditionText.includes("miejscowe opady śniegu z deszczem w pobliżu") || conditionText.includes("lekkie opady śniegu z deszczem") || 
       conditionText.includes("średnie lub ciężkie opady śniegu z deszczem") || conditionText.includes("przejściowe, lekkie opady śniegu z deszczem") || 
       conditionText.includes("przejściowe, średnie lub ciężkie opady śniegu z deszczem")) 
-      return isNight ? "nsnowrain" : "dsnowrain";
+      return isNight ? "nsnowrain snowflake raindrop" : "dsnowrain snowflake raindrop";
   if (conditionText.includes("miejscowe wystąpienie mroźnej mżawki w pobliżu") || conditionText.includes("mroźna mżawka") || 
-      conditionText.includes("ciężka, mroźna mżawka")) 
-      return isNight ? "nfreezingdrizzle" : "dfreezingdrizzle";
-  if (conditionText.includes("miejscowe wystąpienie lekkiej mżawki") || conditionText.includes("lekka mżawka")) 
-      return isNight ? "ndrizzle" : "ddrizzle";
+      conditionText.includes("ciężka, mroźna mżawka") || conditionText.includes("lekkie opady mroźnego deszczu") || conditionText.includes("średnie lub ciężkie opady mroźnego deszczu")) 
+      return isNight ? "nfreezingdrizzle hailstone" : "dfreezingdrizzle hailstone";
   if (conditionText.includes("gwałtowne grzmienia w pobliżu")) 
-      return isNight ? "nstorm" : "dstorm";
+      return isNight ? "nstorm lightning" : "dstorm lightning";
   if (conditionText.includes("miejscowe, lekkie opady deszczu z grzmieniem w okolicy") || 
       conditionText.includes("miejscowe, średnie lub ciężkie opady deszczu z grzmieniem w okolicy")) 
-      return isNight ? "nrainthunder" : "drainthunder";
+      return isNight ? "nstormrain raindrop lightning" : "dstormrain raindrop lightning";
   if (conditionText.includes("miejscowe, lekkie opady śniegu z grzmieniem w okolicy") || 
       conditionText.includes("średnie lub ciężkie opady śniegu z grzmieniem w okolicy")) 
-      return isNight ? "nsnowthunder" : "dsnowthunder";
-  if (conditionText.includes("lekkie opady mroźnego deszczu") || conditionText.includes("średnie lub ciężkie opady mroźnego deszczu")) 
-      return isNight ? "nfreezingrain" : "dfreezingrain";
-  
+      return isNight ? "nstormsnow lightning snowflake" : "dstormsnow lightning snowflake";
+
     return isNight ? "nclear" : "dsunny";
   };
   
@@ -295,7 +291,7 @@ export default function Home() {
  ))}
 </>
 )}
-{weatherCondition && weatherCondition.includes("dheavyerain") && (
+{weatherCondition && weatherCondition.includes("dheavyrain") && (
  <>
  {Array.from({ length: 1500 }).map((_, i) => (
    <div 
@@ -326,6 +322,364 @@ export default function Home() {
  ))}
 </>
 )}
+{weatherCondition && weatherCondition.includes("dlightsnow") && (
+ <>
+ {Array.from({ length: 50 }).map((_, i) => (
+   <div 
+     key={i} 
+     className="snowflake" 
+     style={{ 
+       left: `${Math.random() * 100}vw`, 
+       animationDuration: `${0.8 + Math.random() * 1.2}s`,
+       animationDelay: `${Math.random() * -1}s`
+     }} 
+   />
+ ))}
+</>
+)}
+{weatherCondition && weatherCondition.includes("nlightsnow") && (
+ <>
+ {Array.from({ length: 50 }).map((_, i) => (
+   <div 
+     key={i} 
+     className="snowflake" 
+     style={{ 
+       left: `${Math.random() * 100}vw`, 
+       animationDuration: `${0.8 + Math.random() * 1.2}s`,
+       animationDelay: `${Math.random() * -1}s`
+     }} 
+   />
+ ))}
+</>
+)}
+{weatherCondition && weatherCondition.includes("dmoderatesnow") && (
+ <>
+ {Array.from({ length: 500 }).map((_, i) => (
+   <div 
+     key={i} 
+     className="snowflake" 
+     style={{ 
+       left: `${Math.random() * 100}vw`, 
+       animationDuration: `${0.8 + Math.random() * 1.2}s`,
+       animationDelay: `${Math.random() * -1}s`
+     }} 
+   />
+ ))}
+</>
+)}
+{weatherCondition && weatherCondition.includes("nmoderatesnow") && (
+ <>
+ {Array.from({ length: 500 }).map((_, i) => (
+   <div 
+     key={i} 
+     className="snowflake" 
+     style={{ 
+       left: `${Math.random() * 100}vw`, 
+       animationDuration: `${0.8 + Math.random() * 1.2}s`,
+       animationDelay: `${Math.random() * -1}s`
+     }} 
+   />
+ ))}
+</>
+)}
+{weatherCondition && weatherCondition.includes("dheavysnow") && (
+ <>
+ {Array.from({ length: 1500 }).map((_, i) => (
+   <div 
+     key={i} 
+     className="snowflake" 
+     style={{ 
+       left: `${Math.random() * 100}vw`, 
+       animationDuration: `${0.8 + Math.random() * 1.2}s`,
+       animationDelay: `${Math.random() * -1}s`
+     }} 
+   />
+ ))}
+</>
+)}
+{weatherCondition && weatherCondition.includes("nheavysnow") && (
+ <>
+ {Array.from({ length: 1500 }).map((_, i) => (
+   <div 
+     key={i} 
+     className="snowflake" 
+     style={{ 
+       left: `${Math.random() * 100}vw`, 
+       animationDuration: `${0.8 + Math.random() * 1.2}s`,
+       animationDelay: `${Math.random() * -1}s`
+     }} 
+   />
+ ))}
+</>
+)}
+{weatherCondition && weatherCondition.includes("dwetSnow") && (
+ <>
+ {Array.from({ length: 400 }).map((_, i) => (
+   <div 
+     key={i} 
+     className="snowflake" 
+     style={{ 
+       left: `${Math.random() * 100}vw`, 
+       animationDuration: `${0.8 + Math.random() * 1.2}s`,
+       animationDelay: `${Math.random() * -1}s`
+     }} 
+   />
+ ))}
+</>
+)}
+{weatherCondition && weatherCondition.includes("nwetSnow") && (
+ <>
+ {Array.from({ length: 400 }).map((_, i) => (
+   <div 
+     key={i} 
+     className="snowflake" 
+     style={{ 
+       left: `${Math.random() * 100}vw`, 
+       animationDuration: `${0.8 + Math.random() * 1.2}s`,
+       animationDelay: `${Math.random() * -1}s`
+     }} 
+   />
+ ))}
+</>
+)}
+{weatherCondition && weatherCondition.includes("dsnowrain") && (
+  <>
+    {/* Generowanie 200 kropli deszczu */}
+    {Array.from({ length: 200 }).map((_, i) => (
+      <div 
+        key={`rain-${i}`} 
+        className="raindrop" 
+        style={{ 
+          left: `${Math.random() * 100}vw`, 
+          animationDuration: `${0.8 + Math.random() * 1.2}s`,
+          animationDelay: `${Math.random() * -1}s`
+        }} 
+      />
+    ))}
+    
+    {/* Generowanie 100 płatków śniegu */}
+    {Array.from({ length: 100 }).map((_, i) => (
+      <div 
+        key={`snow-${i}`} 
+        className="snowflake" 
+        style={{ 
+          left: `${Math.random() * 100}vw`, 
+          animationDuration: `${3 + Math.random() * 2}s`,
+          animationDelay: `${Math.random() * -2}s`
+        }} 
+      />
+    ))}
+  </>
+)}
+{weatherCondition && weatherCondition.includes("nsnowrain") && (
+  <>
+    {/* Generowanie 200 kropli deszczu */}
+    {Array.from({ length: 200 }).map((_, i) => (
+      <div 
+        key={`rain-${i}`} 
+        className="raindrop" 
+        style={{ 
+          left: `${Math.random() * 100}vw`, 
+          animationDuration: `${0.8 + Math.random() * 1.2}s`,
+          animationDelay: `${Math.random() * -1}s`
+        }} 
+      />
+    ))}
+    
+    {/* Generowanie 100 płatków śniegu */}
+    {Array.from({ length: 100 }).map((_, i) => (
+      <div 
+        key={`snow-${i}`} 
+        className="snowflake" 
+        style={{ 
+          left: `${Math.random() * 100}vw`, 
+          animationDuration: `${3 + Math.random() * 2}s`,
+          animationDelay: `${Math.random() * -2}s`
+        }} 
+      />
+    ))}
+  </>
+)}
+
+{weatherCondition && weatherCondition.includes("dfreezingdrizzle") && (
+  <>
+    {Array.from({ length: 400 }).map((_, i) => (
+      <div 
+        key={i} 
+        className="hailstone" 
+        style={{ 
+          left: `${Math.random() * 100}vw`, 
+          animationDuration: `${0.5 + Math.random() * 0.8}s`,
+          animationDelay: `${Math.random() * -1}s`
+        }} 
+      />
+    ))}
+  </>
+)}
+
+{weatherCondition && weatherCondition.includes("nfreezingdrizzle") && (
+  <>
+    {Array.from({ length: 400 }).map((_, i) => (
+      <div 
+        key={i} 
+        className="hailstone" 
+        style={{ 
+          left: `${Math.random() * 100}vw`, 
+          animationDuration: `${0.5 + Math.random() * 0.8}s`,
+          animationDelay: `${Math.random() * -1}s`
+        }} 
+      />
+    ))}
+  </>
+)}
+
+{weatherCondition && weatherCondition.includes("dstorm") && (
+  <>
+    {Array.from({ length: 5 }).map((_, i) => (
+      <div 
+        key={i} 
+        className="lightning" 
+        style={{ 
+          left: `${Math.random() * 100}vw`, 
+          animationDelay: `${Math.random() * 5}s`
+        }} 
+      />
+    ))}
+  </>
+)}
+
+{weatherCondition && weatherCondition.includes("nstorm") && (
+  <>
+    {Array.from({ length: 5 }).map((_, i) => (
+      <div 
+        key={i} 
+        className="lightning" 
+        style={{ 
+          left: `${Math.random() * 100}vw`, 
+          animationDelay: `${Math.random() * 5}s`
+        }} 
+      />
+    ))}
+  </>
+)}
+
+{weatherCondition && weatherCondition.includes("dstormrain") && (
+  <>
+    {/* Pioruny */}
+    {Array.from({ length: 5 }).map((_, i) => (
+      <div 
+        key={`lightning-${i}`} 
+        className="lightning" 
+        style={{ 
+          left: `${Math.random() * 100}vw`, 
+          animationDelay: `${Math.random() * 5}s`
+        }} 
+      />
+    ))}
+    
+    {/* Deszcz */}
+    {Array.from({ length: 300 }).map((_, i) => (
+      <div 
+        key={`rain-${i}`} 
+        className="raindrop" 
+        style={{ 
+          left: `${Math.random() * 100}vw`, 
+          animationDuration: `${0.6 + Math.random() * 1.0}s`,
+          animationDelay: `${Math.random() * -1}s`
+        }} 
+      />
+    ))}
+  </>
+)}
+
+{weatherCondition && weatherCondition.includes("nstormrain") && (
+  <>
+    {/* Pioruny */}
+    {Array.from({ length: 5 }).map((_, i) => (
+      <div 
+        key={`lightning-${i}`} 
+        className="lightning" 
+        style={{ 
+          left: `${Math.random() * 100}vw`, 
+          animationDelay: `${Math.random() * 5}s`
+        }} 
+      />
+    ))}
+    
+    {/* Deszcz */}
+    {Array.from({ length: 300 }).map((_, i) => (
+      <div 
+        key={`rain-${i}`} 
+        className="raindrop" 
+        style={{ 
+          left: `${Math.random() * 100}vw`, 
+          animationDuration: `${0.6 + Math.random() * 1.0}s`,
+          animationDelay: `${Math.random() * -1}s`
+        }} 
+      />
+    ))}
+  </>
+)}
+
+{weatherCondition && weatherCondition.includes("dstormsnow") && (
+  <>
+    {/* Pioruny */}
+    {Array.from({ length: 5 }).map((_, i) => (
+      <div 
+        key={`lightning-${i}`} 
+        className="lightning" 
+        style={{ 
+          left: `${Math.random() * 100}vw`, 
+          animationDelay: `${Math.random() * 5}s`
+        }} 
+      />
+    ))}
+    
+    {/* snieg */}
+    {Array.from({ length: 300 }).map((_, i) => (
+      <div 
+        key={`rain-${i}`} 
+        className="snowflake" 
+        style={{ 
+          left: `${Math.random() * 100}vw`, 
+          animationDuration: `${2 + Math.random() * 2}s`,
+          animationDelay: `${Math.random() * -2}s`
+        }} 
+      />
+    ))}
+  </>
+)}
+
+{weatherCondition && weatherCondition.includes("nstormsnow") && (
+  <>
+    {/* Pioruny */}
+    {Array.from({ length: 5 }).map((_, i) => (
+      <div 
+        key={`lightning-${i}`} 
+        className="lightning" 
+        style={{ 
+          left: `${Math.random() * 100}vw`, 
+          animationDelay: `${Math.random() * 5}s`
+        }} 
+      />
+    ))}
+    
+    {/* snieg */}
+    {Array.from({ length: 300 }).map((_, i) => (
+      <div 
+        key={`rain-${i}`} 
+        className="snowflake" 
+        style={{ 
+          left: `${Math.random() * 100}vw`, 
+          animationDuration: `${2 + Math.random() * 2}s`,
+          animationDelay: `${Math.random() * -2}s`
+        }} 
+      />
+    ))}
+  </>
+)}
+
+
 
 
 
